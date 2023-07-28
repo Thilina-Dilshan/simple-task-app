@@ -19,8 +19,9 @@ async function initPool() {
 
 
 /*get all task*/
-router.get("/", (req, res) => {
-
+router.get("/", async (req, res) => {
+    const tasks = await pool.query('SELECT * FROM task');
+    res.json(tasks);
 });
 
 /*save a task*/
