@@ -1,8 +1,10 @@
-import express from 'express';
+import express, {json} from 'express';
 import mysql, {Pool} from 'promise-mysql';
 
 const app = express();
 const router = express.Router();
+
+app.use(json());
 
 let pool: Pool;
 
@@ -17,6 +19,11 @@ async function initPool() {
     });
 }
 
+type Task = {
+    id: number,
+    description: string,
+    status: 'COMPLETED' | 'NOT_COMPLETED';
+};
 
 /*get all task*/
 router.get("/", async (req, res) => {
@@ -25,8 +32,20 @@ router.get("/", async (req, res) => {
 });
 
 /*save a task*/
-router.post("/:taskId", (req, res) => {
+router.post("/:taskId", async (req, res) => {
+    const task = (req.body as Task);
+    if (task.description?.trim()) {
+        res.sendStatus(400);
+        return;
+    }
 
+    const result = await pool.query('INSERT INTO task(description) VALUES(?) '
+        , [task.description]);
+
+    task.id = result.insertId;
+    task.status = "NOT_COMPLETED";
+
+    res.status(201).json(task);
 });
 
 app.use("/app/api/v1/tasks", router);
