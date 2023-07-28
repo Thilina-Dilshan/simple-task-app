@@ -48,5 +48,13 @@ router.post("/:taskId", async (req, res) => {
     res.status(201).json(task);
 });
 
+/* delete a task*/
+router.delete("/:taskId", async (req, res) => {
+    const result = await pool.query('DELETE FROM task WHERE id=?', [req.params.taskId]);
+    res.sendStatus(result.affectedRows ? 204 : 404);
+});
+
+
+
 app.use("/app/api/v1/tasks", router);
 app.listen(8080, () => console.log("Server has been started from 8080"));
