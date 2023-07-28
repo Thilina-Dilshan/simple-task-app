@@ -31,9 +31,9 @@ router.get("/", async (req, res) => {
 });
 
 /*save a task*/
-router.post("/:taskId", async (req, res) => {
+router.post("/", async (req, res) => {
     const task = (req.body as Task);
-    if (task.description?.trim()) {
+    if (!task.description?.trim()) {
         res.sendStatus(400);
         return;
     }

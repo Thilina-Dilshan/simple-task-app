@@ -36,10 +36,10 @@ exports.router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function
     res.json(tasks);
 }));
 /*save a task*/
-exports.router.post("/:taskId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const task = req.body;
-    if ((_a = task.description) === null || _a === void 0 ? void 0 : _a.trim()) {
+    if (!((_a = task.description) === null || _a === void 0 ? void 0 : _a.trim())) {
         res.sendStatus(400);
         return;
     }
