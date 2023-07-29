@@ -15,18 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const promise_mysql_1 = __importDefault(require("promise-mysql"));
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
 exports.router = express_1.default.Router();
 let pool;
+dotenv_1.default.config();
 initPool();
 function initPool() {
     return __awaiter(this, void 0, void 0, function* () {
         pool = yield promise_mysql_1.default.createPool({
-            host: 'localhost',
-            port: 3306,
-            database: 'dep10_simple_task_app',
-            user: 'root',
-            password: 'mysql',
-            connectionLimit: 5,
+            host: process.env.host,
+            port: +process.env.port,
+            database: process.env.database,
+            user: process.env.username,
+            password: process.env.password,
+            connectionLimit: +process.env.connection_limit,
         });
     });
 }
