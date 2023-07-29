@@ -8,10 +8,10 @@
   <div class="p-3 py-2">
     <div class="form-check d-flex justify-content-between">
       <div>
-        <input id="task-{{task.id}}" class="form-check-input" type="checkbox" value="">
+        <input [checked]="task.status=='COMPLETED'" id="task-{{task.id}}" class="form-check-input" type="checkbox" value="">
         <label for="task-{{task.id}}" class="form-check-label">Task-{{task.description}}</label>
       </div>
-      <span class="trash" title="Delete Task">
+      <span class="trash" title="Delete Task" (click)="deleteTask(task)">
       <svg class="bi bi-trash" fill="currentColor" height="20" viewBox="0 0 16 16" width="20"
            xmlns="http://www.w3.org/2000/svg">
   <path
