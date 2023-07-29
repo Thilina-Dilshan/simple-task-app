@@ -1,0 +1,8 @@
+input:checked+label{
+  text-decoration: line-through;
+  color: lightgrey;
+}
+
+.trash:hover{
+  color: red;
+}
